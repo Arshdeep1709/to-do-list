@@ -16,14 +16,25 @@ const App = () => {
     console.log(mainTask)
   }
 
+  const deleteHandler = (indx) => {
+    let copyTask = [...mainTask]
+    copyTask.splice(indx,1)
+    setMainTask(copyTask)
+  }
+
   let renderTask = <h2>No Task available !!</h2>
   if(mainTask.length > 0){
     renderTask =  mainTask.map((tsk,indx)=>{
           return(
+            <>
+            <li key={indx}>
             <div className="data2">
               <h5>{tsk.task}</h5>
               <h5>{tsk.description}</h5>
             </div>
+            <button onClick={()=>{deleteHandler(indx)}}>X</button>
+            </li>
+            </>
           )
   })
   }
