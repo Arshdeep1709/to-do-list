@@ -5,12 +5,27 @@ import React, { useState } from "react";
 const App = () => {
   const [task, setTask] = useState("")
   const [description, setDescription] = useState("")
+  const [mainTask, setMainTask] = useState([])
   const formSubmit = (e) => {
     e.preventDefault()
-    console.log(task)
-    console.log(description)
+    setMainTask([...mainTask, {task, description}])
+    // console.log(task)
+    // console.log(description)
     setTask("")
     setDescription("")
+    console.log(mainTask)
+  }
+
+  let renderTask = <h2>No Task available !!</h2>
+  if(mainTask.length > 0){
+    renderTask =  mainTask.map((tsk,indx)=>{
+          return(
+            <div className="data2">
+              <h5>{tsk.task}</h5>
+              <h5>{tsk.description}</h5>
+            </div>
+          )
+  })
   }
   return(
     <>
@@ -20,6 +35,12 @@ const App = () => {
       <textarea name="" rows={1} placeholder="Enter description" value={description} onChange={(e)=>{setDescription(e.target.value)}}></textarea>
       <button>Add</button>
     </form>
+    <hr/>
+    <div className="data">
+    <ul>
+      {renderTask}
+    </ul>
+    </div>
     </>
   )
 }
